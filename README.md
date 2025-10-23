@@ -8,7 +8,8 @@ This project is configured to use JDK 25 via Gradle Toolchains:
 
 - Java toolchain: 25
 - Gradle wrapper: 8.14.3 (supports recent JDKs)
-- Kotlin: 2.0.21 (works fine running on JDK 25; bytecode target stays compatible with the toolchain)
+- Kotlin: 2.2.20
+- JVM bytecode target: 24 (highest supported by Kotlin 2.2.20; Kotlin does not yet support target 25)
 - Spring Boot: 3.5.6
 
 Notes:
