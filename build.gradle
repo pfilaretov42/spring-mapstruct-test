@@ -11,8 +11,11 @@ description = 'spring-mapstruct-test'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
+    // Compile to Java 22 bytecode for compatibility with current Kotlin JVM target support
+    sourceCompatibility = JavaVersion.VERSION_22
+    targetCompatibility = JavaVersion.VERSION_22
 }
 
 repositories {
@@ -29,8 +32,11 @@ dependencies {
 }
 
 kotlin {
+    // Use JDK 25 toolchain for Kotlin compiler while targeting JVM 22 bytecode
+    jvmToolchain(25)
     compilerOptions {
         freeCompilerArgs.addAll '-Xjsr305=strict'
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_22
     }
 }
 
