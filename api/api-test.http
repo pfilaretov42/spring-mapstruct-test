@@ -3,7 +3,8 @@ Content-Type: application/json
 
 {
   "age": 20,
-  "name": "Jim"
+  "name": "Jimmy",
+  "nickName": "Big Jim"
 }
 
 ###

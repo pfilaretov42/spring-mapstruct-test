@@ -3,9 +3,22 @@ package dev.pfilaretov42.spring.mapstruct.mapper
 import dev.pfilaretov42.spring.mapstruct.dto.PersonDto
 import dev.pfilaretov42.spring.mapstruct.model.Person
 import org.mapstruct.Mapper
+import org.mapstruct.Mapping
 
+/**
+ * Demonstrates a pitfall: a protected String->String mapping method is introduced and
+ * explicitly used only for the 'name' field via expression. However, MapStruct will
+ * discover it by signature and may use it for other String fields (e.g. nickName) as well.
+ */
 @Mapper(componentModel = "spring")
-interface PersonMapper {
-    fun toModel(dto: PersonDto): Person
-    fun toDto(model: Person): PersonDto
+abstract class PersonMapper {
+
+    @Mapping(target = "name", expression = "java(stringToString(dto.getName()))")
+    abstract fun toModel(dto: PersonDto): Person
+
+    abstract fun toDto(model: Person): PersonDto
+
+    // This is the tricky method: it looks generic (String -> String), so MapStruct can pick it up
+    // and use it for ANY String mapping, not only where we want it.
+    protected fun stringToString(value: String): String = value.uppercase()
 }
