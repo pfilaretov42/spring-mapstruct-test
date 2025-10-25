@@ -40,7 +40,7 @@ class BalrogMapperPitfallTest {
         val model = mapper.toModel(dto)
 
         // then
-        assertEquals("GOTHMOG", model.trueName, "trueName should be uppercased via expression")
+        assertEquals("GOTHMOG", model.trueName.value, "trueName should be uppercased via expression")
         // We expect battleName to be unchanged, but due to the pitfall it becomes uppercased.
         // This assertion will FAIL, showcasing the issue.
         assertEquals(

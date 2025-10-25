@@ -2,6 +2,7 @@ package dev.pfilaretov42.spring.mapstruct.mapper
 
 import dev.pfilaretov42.spring.mapstruct.dto.BalrogDto
 import dev.pfilaretov42.spring.mapstruct.model.Balrog
+import dev.pfilaretov42.spring.mapstruct.model.TrueName
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
@@ -14,12 +15,11 @@ import org.mapstruct.Mapping
 @Mapper(componentModel = "spring")
 abstract class BalrogMapper {
 
-    @Mapping(target = "trueName", expression = "java(uppercased(dto.getTrueName()))")
     abstract fun toModel(dto: BalrogDto): Balrog
 
-    // This is the tricky method: it looks generic (String -> String), so MapStruct can pick it up
-    // and use it for ANY String mapping, not only where we want it.
-    protected fun uppercased(value: String): String = value.uppercase()
+    fun toTrueName(raw: String): TrueName = TrueName(raw.uppercase())
+
+    fun fromTrueName(name: TrueName): String = name.value
 
     abstract fun toDto(model: Balrog): BalrogDto
 }
