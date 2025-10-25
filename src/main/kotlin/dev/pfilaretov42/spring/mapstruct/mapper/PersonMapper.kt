@@ -13,12 +13,12 @@ import org.mapstruct.Mapping
 @Mapper(componentModel = "spring")
 abstract class PersonMapper {
 
-    @Mapping(target = "name", expression = "java(stringToString(dto.getName()))")
+    @Mapping(target = "name", expression = "java(uppercased(dto.getName()))")
     abstract fun toModel(dto: PersonDto): Person
-
-    abstract fun toDto(model: Person): PersonDto
 
     // This is the tricky method: it looks generic (String -> String), so MapStruct can pick it up
     // and use it for ANY String mapping, not only where we want it.
-    protected fun stringToString(value: String): String = value.uppercase()
+    protected fun uppercased(value: String): String = value.uppercase()
+
+    abstract fun toDto(model: Person): PersonDto
 }
