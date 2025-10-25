@@ -1,6 +1,6 @@
 package dev.pfilaretov42.spring.mapstruct.mapper
 
-import dev.pfilaretov42.spring.mapstruct.dto.PersonDto
+import dev.pfilaretov42.spring.mapstruct.dto.BalrogDto
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,15 +22,15 @@ import org.springframework.boot.test.context.SpringBootTest
  *  - both 'name' and 'nickName' become uppercased
  */
 @SpringBootTest
-class PersonMapperPitfallTest {
+class BalrogMapperPitfallTest {
 
     @Autowired
-    lateinit var mapper: PersonMapper
+    lateinit var mapper: BalrogMapper
 
     @Test
     fun `should not change other String fields when using expression on name only`() {
         // given
-        val dto = PersonDto(
+        val dto = BalrogDto(
             age = 20,
             name = "Jimmy",
             nickName = "Big Jim"

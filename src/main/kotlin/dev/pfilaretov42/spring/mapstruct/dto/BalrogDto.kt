@@ -1,6 +1,6 @@
-package dev.pfilaretov42.spring.mapstruct.model
+package dev.pfilaretov42.spring.mapstruct.dto
 
-class Person(
+class BalrogDto(
     val age: Int,
     val name: String,
     val nickName: String,
