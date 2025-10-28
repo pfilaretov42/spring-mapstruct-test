@@ -8,13 +8,13 @@ import org.mapstruct.Mapping
 /**
  * Like a Balrog lurking in the depths of Moria, a seemingly harmless protected String->String
  * mapping method can unexpectedly emerge and set other String fields ablaze. We explicitly
- * use it only for the 'name' field via expression, but MapStruct may discover it by signature
- * and apply it to other String fields (e.g. nickName) as well.
+ * use it only for the 'trueName' field via expression, but MapStruct may discover it by signature
+ * and apply it to other String fields (e.g., battleName) as well.
  */
 @Mapper(componentModel = "spring")
 abstract class BalrogMapper {
 
-    @Mapping(target = "name", expression = "java(uppercased(dto.getName()))")
+    @Mapping(target = "trueName", expression = "java(uppercased(dto.getTrueName()))")
     abstract fun toModel(dto: BalrogDto): Balrog
 
     // This is the tricky method: it looks generic (String -> String), so MapStruct can pick it up

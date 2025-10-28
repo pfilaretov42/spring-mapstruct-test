@@ -9,17 +9,17 @@ import org.springframework.boot.test.context.SpringBootTest
 /**
  * This test intentionally demonstrates a MapStruct pitfall.
  *
- * We use a protected String->String method only in an expression for the 'name' field,
- * but MapStruct will also apply it automatically to other String fields (nickName),
+ * We use a protected String->String method only in an expression for the 'trueName' field,
+ * but MapStruct will also apply it automatically to other String fields (battleName),
  * because it discovers the method by its (String -> String) signature and considers it
  * a general-purpose mapping.
  *
  * EXPECTATION (what we want):
- *  - only 'name' should be uppercased
- *  - 'nickName' should remain unchanged
+ *  - only 'trueName' should be uppercased
+ *  - 'battleName' should remain unchanged
  *
  * ACTUAL (what MapStruct does):
- *  - both 'name' and 'nickName' become uppercased
+ *  - both 'trueName' and 'battleName' become uppercased
  */
 @SpringBootTest
 class BalrogMapperPitfallTest {
@@ -28,21 +28,25 @@ class BalrogMapperPitfallTest {
     lateinit var mapper: BalrogMapper
 
     @Test
-    fun `should not change other String fields when using expression on name only`() {
+    fun `should not change other String fields when using expression on trueName only`() {
         // given
         val dto = BalrogDto(
-            age = 20,
-            name = "Jimmy",
-            nickName = "Big Jim"
+            millenniaOld = 20,
+            trueName = "Gothmog",
+            battleName = "High Captain of Angband"
         )
 
         // when
         val model = mapper.toModel(dto)
 
         // then
-        assertEquals("JIMMY", model.name, "Name should be uppercased via expression")
-        // We expect nickName to be unchanged, but due to the pitfall it becomes uppercased.
+        assertEquals("GOTHMOG", model.trueName, "trueName should be uppercased via expression")
+        // We expect battleName to be unchanged, but due to the pitfall it becomes uppercased.
         // This assertion will FAIL, showcasing the issue.
-        assertEquals("Big Jim", model.nickName, "nickName should NOT be affected by the expression on 'name'")
+        assertEquals(
+            "High Captain of Angband",
+            model.battleName,
+            "battleName should NOT be affected by the expression on 'trueName'"
+        )
     }
 }

@@ -2,9 +2,9 @@ POST http://localhost:8080/balrogs
 Content-Type: application/json
 
 {
-  "age": 20,
-  "name": "Jimmy",
-  "nickName": "Big Jim"
+  "millenniaOld": 20,
+  "trueName": "Gothmog",
+  "battleName": "High Captain of Angband"
 }
 
 ###
